@@ -80,6 +80,11 @@ app.use((req, res, next) => {
   };
   next();
 });
+
+app.get("/", (req, res) => {
+  res.redirect("https://rachelkennedy09.github.io/RockyMountainTails/");
+});
+
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
