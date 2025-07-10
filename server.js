@@ -1,46 +1,45 @@
-// step 1. grab your html
+//===============
+//STEP 1: Grab all HTML elements. These all can be at the top of the page, as they only run once.
+// ==============
 
-//step 1.5: create any global variables that you need
-
-//step 2. write your functions (aka interactivity)
-
-//step 3: setup your event listener 
-
-
-
-
-
-
-
-
-
-// STEP 1: **Grab HTML elements** Grab the hamburger icon and the nav links container
+// NAVIGATION
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 const navLinkItems = document.querySelectorAll("#navLinks a");
 
+// DOG PROFILES
+const dogContainer = document.getElementById("dogCards");
 
+// TEAM CARDS
+const teamContainer = document.getElementById("teamCards");
 
-//Open/close menu on click
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-});
+// FORMS
+const bookingForm = document.getElementById("booking-form");
+const applyForm = document.getElementById("apply-form");
 
-//Close the menu when any nav link is clicked
+// BOOKING FIELDS
+const dateInput = document.getElementById("date");
+const chooseBestieRadio = document.getElementById("chooseBestie");
+const viewAvailableRadio = document.getElementById("viewAvailable");
+const bestieContainer = document.getElementById("bestieSelectContainer");
+const availableBestiesDiv = document.getElementById("availableBesties");
+const calendarDiv = document.getElementById("bestieCalendar");
 
+// SPINNER AND MESSAGE BOXES
+const successDiv = document.getElementById("booking-success");
+const spinner = document.getElementById("spinner");
+const applySpinner = document.getElementById("apply-spinner");
+const applySuccess = document.getElementById("apply-success");
 
-//STEP 2: interactivity
-navLinkItems.forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("show"); // hide menu
-  });
-});
+//DISABLE PAST DATES
+const today = new Date().toISOString().split("T")[0];
+dateInput.setAttribute("min", today);
 
+//=============
+//STEP 2: Global data (arrays and values): defining any reusable data.
+//=============
 
-// Dog "Objects" - Meet our furry clients
-// Dog Object Array (uses variables, strings, booleans, JSON like structure)
-//STEP 1.5: Dog data
-
+// DOG DATA
 const dogs = [
   {
     name: "Rammi",
@@ -68,127 +67,233 @@ const dogs = [
   },
 ];
 
-//STEP 2:
-// Function to render dog cards on the page
+// TEAM MEMBER DATA
+const teamMembers = [
+  {
+    name: "Rachel",
+    image: "images/RachandRami.jpeg",
+    bio: "Mountain mama, trail guide, and Rami's best friend.",
+    rating: 5,
+    review: "Rachel is amazing! My dog never wants to come home.",
+  },
+  {
+    name: "Jake",
+    image: "images/JakeandLuna.jpeg",
+    bio: "Specializes in high-energy pups and snow walks.",
+    rating: 5,
+    review: "Jake took my husky on a trail run and she came back blissed out!",
+  },
+];
+
+// PRETEND SCHEDULE FOR BESTIES
+const bestieSchedule = {
+  "2025-05-15": ["Rachel"],
+  "2025-05-17": ["Jake"],
+  "2025-05-22": ["Rachel", "Jake"],
+  "2025-05-28": [], //no one available
+};
+
+//==============
+//STEP 3: Functions: Defining the behavior
+//==============
+
+// NAV MENU TOGGLE
+function toggleMenu() {
+  navLinks.classList.toggle("show");
+}
+
+function closeMenu() {
+  navLinks.classList.remove("show");
+}
+
+// DOG CARDS
 function renderDogs(dogArray) {
-  const container = document.getElementById("dogCards");
-  container.innerHTML = ""; //clearing content inside if re-rendering
-
-  dogArray.forEach(function (dog) {
-    let waterText = dog.lovesWater ? "loves water!" : "avoids water";
-
+  dogContainer.innerHTML = "";
+  dogArray.forEach((dog) => {
+    const waterText = dog.lovesWater ? "loves water!" : "avoids water";
     const card = document.createElement("div");
     card.classList.add("dog-card");
     card.innerHTML = `
-    <img src="${dog.image}" alt=${dog.name}" class="dog-img">
+      <img src="${dog.image}" alt="${dog.name}" class="dog-img">
       <h3>${dog.name}</h3>
       <p>Age: ${dog.age}</p>
       <p>Breed: ${dog.breed}</p>
       <p>Activity: ${dog.activity}</p>
       <p><strong>${dog.name}</strong> ${waterText}</p>
     `;
-    container.appendChild(card);
+    dogContainer.appendChild(card);
   });
 }
 
-// Call function to render dog cards
-renderDogs(dogs);
-
-// Dog-Besties/Team Members
-//array of team members, JSON structure
-//STEP 1.5: Team Member Data
-const teamMembers = [
-  {
-    name: "Rachel",
-    image: "images/RachandRami.jpeg",
-    bio: "Mountain mama, trail guide, and Rami's best friend. Loves walking along the river with a fur bestie!",
-    rating: 5,
-    review: "Rachel is amazing! My dog never wants to come home. ",
-  },
-  {
-    name: "Jake",
-    image: "images/JakeandLuna.jpeg",
-    bio: "Big heart, big passion. Specializes in high-energy pups and snow walks.",
-    rating: 5,
-    review: "Jake took my husky on a trail run and she came back blissed out!",
-  },
-];
-
-//function to display the team members profiles
-//STEP 2:
+// TEAM CARDS
 function renderTeam(teamArray) {
-  const teamContainer = document.getElementById("teamCards");
-  teamContainer.innerHTML = ""; //clearing content inside if re-rendering
-
-  teamArray.forEach(function (member) {
+  teamContainer.innerHTML = "";
+  teamArray.forEach((member) => {
+    const stars = "⭐".repeat(member.rating);
     const card = document.createElement("div");
     card.classList.add("team-card");
-
-    const stars = "⭐".repeat(member.rating); //practicing repeat
-
     card.innerHTML = `
-  <img src="${member.image}" alt="${member.name}" class="team-img" />
-  <h3>${member.name}</h3>
-  <p>${member.bio}</p>
-  <p><strong>Client Review:</strong><br>"${member.review}"</p>
-  <p class="stars">${stars}</p>
-`;
-
-    teamContainer.appendChild(card); //adding card to the HTML container
+      <img src="${member.image}" alt="${member.name}" class="team-img" />
+      <h3>${member.name}</h3>
+      <p>${member.bio}</p>
+      <p><strong>Client Review:</strong><br>"${member.review}"</p>
+      <p class="stars">${stars}</p>
+    `;
+    teamContainer.appendChild(card);
   });
 }
 
-renderTeam(teamMembers); //calling it
+// AVAILABLE BESTIES ON SELECTED DATES
+function showAvailableBestiesByDate() {
+  const date = dateInput.value;
+  //saying if (!date) does not equal to them clicking a date and to pick one
+  if (!date) {
+    availableBestiesDiv.innerHTML = "Please select a date.";
+    availableBestiesDiv.style.display = "block";
+    return;
+  }
 
-//BOOKING INTERACTIVITY
+  const available = bestieSchedule[date]; //looking up the availability
 
-const bookingForm = document.getElementById("booking-form"); // grabbing html step 1, and creating
-// global variables  (global scope)
+  if (available.length > 0) {
+    //this is saying if there are besties available, show their names
+    availableBestiesDiv.innerHTML =
+      "Available Besties on " + date + ": " + available.join(", ");
+  } else if (available && available.length === 0) {
+    //if we know the date but no one is free
+    availableBestiesDiv.innerHTML =
+      "Sorry, no besties are available on this date. Please pick an other option.";
+  } else {
+    //if there is no data for that date at all
+    availableBestiesDiv.innerHTML = "No availability data for that date yet.";
+  }
+  availableBestiesDiv.style.display = "block"; //show the results
+}
 
-//writing functions(interactivity) and defines the behavior when the form is submitted
-//collects values, checks if fields are filled, and shows a message
+//SHOW FAKE CALENDAR WITH AVAILABLE DATES
+function showFakeBestieCalendar() {
+  const availableDates = ["2025-05-15", "2025-05-17", "2025-05-22"];
+
+  calendarDiv.innerHTML = "<strong> Bestie Availability: </strong><br>"; //adding title text
+
+  //Creating a loop to go through the fake dates and create a visual box for each one
+  availableDates.forEach((date) => {
+    const dateBox = document.createElement("div"); //creating a box div
+    dateBox.classList.add("date-box"); //styling
+    dateBox.textContent = date; // add the date text inside the box
+    calendarDiv.appendChild(dateBox); // attach the box to the calendar section
+  });
+
+  calendarDiv.style.display = "flex"; //showing on screen
+}
+
+//------------
+// STEP 4: Form Handlers
+//---------------
+
+// BOOKING FORM
 function handleBookingSubmit(event) {
-  event.preventDefault(); // Stop page from refreshing
+  event.preventDefault(); // stops form from reloading normally
 
-  const ownerName = document.getElementById("owner-name").value;
-  const dogName = document.getElementById("dog-name").value;
-  const service = document.getElementById("service").value;
-  const date = document.getElementById("date").value;
-  const notes = document.getElementById("notes").value;
+  //grab user input
+  const bestieSelect = document.getElementById("bestie");
+  const ownerName = document.getElementById("owner-name").value.trim();
+  const dogName = document.getElementById("dog-name").value.trim();
+  const service = document.getElementById("service").value.trim();
+  const date = document.getElementById("date").value.trim();
 
   if (ownerName && dogName && service && date) {
-    alert(
-      `Thank you, ${ownerName}! Your ${service} booking for ${dogName} on ${date} is confirmed! 🐾`
-    );
-    bookingForm.reset(); // Clear the form after submission
+    spinner.style.display = "inline-block";
+
+    // build a message based on the user's bestie selection
+    let bestieMessage = ""; // start with an empty message
+
+    if (chooseBestieRadio.checked) {
+      const chosen = bestieSelect.value;
+      // If user chose a bestie, include their name
+      bestieMessage = chosen ? ` with bestie ${chosen}` : "";
+    } else {
+      // If "see who's available" was selected, use this message instead
+      const available = bestieSchedule[date]; // get besties for selected date
+      bestieMessage =
+        available && available.length
+          ? ` with bestie ${available.join(" and ")}`
+          : " but no besties were available on that date";
+    }
+
+    //using asynchronous to settime to simulate data being processed and user getting feedback
+    setTimeout(() => {
+      spinner.style.display = "none"; //hiding spinner
+      successDiv.style.display = "block"; //shows message "block"
+      successDiv.textContent =
+        successDiv.textContent = `Thank you, ${ownerName}! Your ${service} booking for ${dogName} on ${date} is confirmed${bestieMessage}. 🐾`;
+
+      bookingForm.reset(); //where I clear the form for 1500ms (1.5 seconds)
+    }, 1500);
   } else {
-    alert("Please fill out all required fields.");
+    alert("please fill out all required fields.");
   }
 }
-//adding event listener clear and readable with handleBookingSubmit
-bookingForm.addEventListener("submit", handleBookingSubmit);
 
-//APPLY FORM
+// APPLY FORM
 
-// STEP 1: Grab your HTML
-const applyForm = document.getElementById("apply-form");
-
-// STEP 2: Write your function
 function handleApplySubmit(event) {
-  event.preventDefault();
+  event.preventDefault(); // stops form from reloading normally
 
-  const applicantName = document.getElementById("applicant-name").value;
-  const email = document.getElementById("email").value;
-  const about = document.getElementById("about").value;
-  const photo = document.getElementById("photo").files[0];
+  // Grab user input values // using trip to remove extra spaces.
+  const name = document.getElementById("applicant-name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const about = document.getElementById("about").value.trim();
 
-  if (applicantName && email && about) {
-    alert(`Thanks ${applicantName}! Your application has been received. 🐾`);
-    applyForm.reset();
+  //targeting spinner and success message
+
+  //using if/else statements to validate
+  if (name && email && about) {
+    applySpinner.style.display = "inline-block"; // Show loading spinner
+    //using asynchronous to settime to simulate data being processed and user getting feedback
+    setTimeout(() => {
+      applySpinner.style.display = "none"; // Hiding spinner
+      applySuccess.style.display = "block"; // Show confirmation
+      applySuccess.textContent = `Thanks, ${name}! Your application has been received. We'll be in touch at ${email}.`;
+
+      applyForm.reset(); // Reset form fields
+    }, 1500);
   } else {
     alert("Please fill out all required fields.");
   }
 }
 
-// STEP 3: Event listener
+// STEP 5: Event Listeners
+
+// RESPONSIVE NAV MENU
+hamburger.addEventListener("click", toggleMenu);
+navLinkItems.forEach((link) => link.addEventListener("click", closeMenu));
+
+// FORMS
+bookingForm.addEventListener("submit", handleBookingSubmit);
 applyForm.addEventListener("submit", handleApplySubmit);
+
+// WHEN USER SELECTS "REQUEST A BESTIE"
+chooseBestieRadio.addEventListener("change", () => {
+  bestieContainer.style.display = "block"; //show dropdown
+  availableBestiesDiv.style.display = "none"; //hide availability list
+  calendarDiv.style.display = "none"; //hide calendar
+});
+// CHECK WHO IS AVAILABLE
+viewAvailableRadio.addEventListener("change", () => {
+  bestieContainer.style.display = "none"; // hide the dropdown
+  showAvailableBestiesByDate(); // check who's available
+  showFakeBestieCalendar(); // show pretend calendar
+});
+
+// If the user changes the date, and "Show who is available" is selected,
+// we update the available besties list immediately
+dateInput.addEventListener("change", () => {
+  if (viewAvailableRadio.checked) {
+    showAvailableBestiesByDate(); // refresh the list of available besties
+  }
+});
+
+// Initial PAGE LOAD
+renderDogs(dogs);
+renderTeam(teamMembers);
