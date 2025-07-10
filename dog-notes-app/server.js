@@ -80,6 +80,16 @@ app.use((req, res, next) => {
   };
   next();
 });
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+      return res.redirect("/"); // fallback if error
+    }
+    res.clearCookie("connect.sid"); // Optional: clears the session cookie
+    res.redirect("https://rachelkennedy09.github.io/RockyMountainTails/");
+  });
+});
 
 //Connect to MongoDB using Mongoose
 mongoose
