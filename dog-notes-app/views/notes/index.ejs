@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Walking Reports</title>
     <link rel="stylesheet" href="/styles.css">
+
 </head>
 
 <body>
@@ -62,23 +63,21 @@
                                                     style="max-width: 100%; height: auto; margin-bottom: 10px;">
                                                 <% } %>
 
-                                                    <!-- DELETE /EDIT POST -->
-                                                    <form action="/notes/<%= note._id %>?_method=DELETE" method="POST"
-                                                        style="display:inline;">
-                                                        <button type="submit"> Delete </button>
-                                                    </form>
-                                                
+                                                    <div class="note-actions">
+                                                        <form action="/notes/<%= note._id %>?_method=DELETE"
+                                                            method="POST" style="display:inline;">
+                                                            <button class="btn-secondary btn-delete"
+                                                                type="submit">Delete</button>
+                                                        </form>
+                                                        <a href="/notes/<%= note._id %>/edit"
+                                                            class="btn-secondary btn-edit">Edit</a>
+                                                    </div>
 
 
+                                                    <% }) %>
+                                                        <% } %>
 
-
-                                                    <a href="/notes/<%= note._id %>/edit"> Edit </a>
-                                        </div>
-
-                                        <% }) %>
-                                            <% } %>
-
-                                                <%- include('../partials/_footer') %>
+                                                            <%- include('../partials/_footer') %>
 
 
 </body>

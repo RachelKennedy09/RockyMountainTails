@@ -2,6 +2,7 @@ import express from "express";
 import {
   showNewForm,
   listNotes,
+  createNote,
   showEditForm,
   updateNote,
   deleteNote,
@@ -13,12 +14,11 @@ import { requireLogin } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/notes/new", requireLogin, showNewForm);
-
-router.get("/notes", requireLogin, listNotes);
-
-router.get("/notes/:id/edit", showEditForm);
-router.put("/notes/:id", updateNote);
-router.delete("/notes/:id", deleteNote);
+router.get("/new", requireLogin, showNewForm);
+router.get("/", requireLogin, listNotes);
+router.post("/", requireLogin, createNote);
+router.get("/:id/edit", showEditForm);
+router.put("/:id", updateNote);
+router.delete("/:id", deleteNote);
 
 export default router;

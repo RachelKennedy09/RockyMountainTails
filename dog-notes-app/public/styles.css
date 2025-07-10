@@ -416,67 +416,84 @@ body {
 }
 
 /* Dog-Notes styling */
-
+/* General Container Styling */
 .container {
   max-width: 600px;
-  margin: 40px auto;
-  background-color: #fff9f5;
-  padding: 30px;
-  border-radius: 12px;
+  margin: 80px auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", sans-serif;
 }
 
-.form-title {
+.container h1 {
   text-align: center;
-  color: #3b3a36;
+  margin-bottom: 2rem;
+  color: #2c3e50;
 }
 
-.note-form label {
+/* Form Inputs & Labels */
+form label {
   display: block;
-  margin-bottom: 12px;
+  margin-top: 1rem;
   font-weight: bold;
   color: #4b4b4b;
 }
 
-.note-form input[type="text"],
-.note-form textarea {
+form input[type="text"],
+form textarea {
   width: 100%;
-  padding: 8px;
-  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  margin-top: 4px;
-  margin-bottom: 20px;
+  margin-top: 0.5rem;
 }
 
-.note-form input[type="checkbox"] {
+form input[type="checkbox"] {
   margin-right: 8px;
+  transform: scale(1.2);
+  margin-top: 1rem;
 }
 
-.note-form button {
-  background-color: #ffb347;
-  color: white;
+/* Buttons */
+.btn-secondary {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
   border: none;
-  padding: 12px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.note-form button:hover {
-  background-color: #ffa123;
-}
-
-.message {
+  text-decoration: none;
   text-align: center;
-  padding: 10px;
-  color: green;
-  font-weight: bold;
+  transition: background 0.3s ease;
+  cursor: pointer;
 }
 
-/* Styling for note card */
-.note-card {
+.btn-delete {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #388e3c;
+}
+
+.btn-edit {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.btn-edit:hover {
+  background-color: #bdbdbd;
+}
+
+/* Note List */
+.note-list {
+  list-style: none;
+  padding: 0;
+}
+
+.note-item {
   background-color: #fdfaf6;
   padding: 15px;
   border-radius: 10px;
@@ -484,7 +501,24 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
-/* success message */
+.note-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.note-actions a {
+  margin-right: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.note-actions form {
+  display: inline;
+}
+
+/* Message Banner */
 .message {
   padding: 10px;
   background-color: #d4edda;
@@ -493,4 +527,13 @@ body {
   border-radius: 5px;
   margin-bottom: 20px;
   text-align: center;
+}
+
+/* Back Link */
+.back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: bold;
 }

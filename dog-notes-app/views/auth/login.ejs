@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/style-auth.css" />
+    <link rel="stylesheet" href="/style-auth.css">
 </head>
 
 <body>
-    <div class="auth-box">
+    <div class="auth-container">
         <h1>Welcome Back 🐾</h1>
 
         <% if (message) { %>
@@ -18,15 +18,19 @@
             </p>
             <% } %>
 
-                <form action="/login" method="POST">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required />
+                <div class="auth-box">
+                    <form action="/login" method="POST">
+                        <label>Username:
+                            <input type="text" name="username" required>
+                        </label>
 
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required />
+                        <label>Password:
+                            <input type="password" name="password" required>
+                        </label>
 
-                    <button type="submit">Login</button>
-                </form>
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
     </div>
 </body>
 

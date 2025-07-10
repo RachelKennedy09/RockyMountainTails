@@ -68,7 +68,7 @@ import authRoutes from "./routes/authRoutes.js";
 //Middleware to parse form data and JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", notesRoutes);
+app.use("/notes", notesRoutes);
 app.use("/", authRoutes); // after app.use(express...) middleware
 //Server static files from the 'public' folder (CSS, images, etc.)
 app.use(express.static("public"));
