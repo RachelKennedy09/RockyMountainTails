@@ -59,7 +59,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-//import routes
+//import notes routes
 import notesRoutes from "./routes/notesRoutes.js";
 
 //import auth routes
