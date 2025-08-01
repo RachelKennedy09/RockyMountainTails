@@ -48,8 +48,7 @@ SESSION_SECRET=your-secret-key
 npm run dev
 ```
 
-Visit: [http://localhost:3000](http://localhost:3000)  
-→ This redirects to the live homepage:  
+Visit: homepage → WalkerLogin or WalkerRegister
 👉 https://rachelkennedy09.github.io/RockyMountainTails/
 
 To log in: visit [http://localhost:3000/login](http://localhost:3000/login)
